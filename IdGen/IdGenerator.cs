@@ -22,6 +22,13 @@ namespace IdGen
         private readonly int SHIFT_TIME;
         private readonly int SHIFT_GENERATOR;
 
+        private readonly bool PREFIXYYNO;
+        private readonly long YYNO;
+        private readonly TimeSpan TICKDURATION;
+        private readonly long MAXID;
+        private readonly long MINID;
+        private readonly long YEARBASENUM;
+
 
         // Object to lock() on while generating Id's
         private readonly object _genlock = new();
@@ -73,6 +80,19 @@ namespace IdGen
             MASK_SEQUENCE = GetMask(options.IdStructure.SequenceBits);
             SHIFT_TIME = options.IdStructure.GeneratorIdBits + options.IdStructure.SequenceBits;
             SHIFT_GENERATOR = options.IdStructure.SequenceBits;
+            PREFIXYYNO = options.IdStructure.PrefixYYNo;
+            YYNO = options.TimeSource.Epoch.Year % 1000;
+            TICKDURATION = options.TimeSource.TickDuration;
+
+            if (PREFIXYYNO)
+            {
+                if (TICKDURATION.TotalSeconds == 1)
+                {
+                    var maxsequenceid = 1 << Options.IdStructure.SequenceBits;
+                    MAXID = ((options.TimeSource.GetYearlyMaxTicks() << SHIFT_TIME) + (maxgeneratorid << SHIFT_GENERATOR) + maxsequenceid);
+                    YEARBASENUM = (long)(YYNO * Math.Pow(10, Math.Floor(Math.Log10(MAXID) + 1)));
+                }
+            }
         }
 
         /// <summary>

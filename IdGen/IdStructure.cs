@@ -37,11 +37,17 @@ namespace IdGen
         /// </summary>
         public int MaxSequenceIds => (1 << SequenceBits);
 
+
+        /// <summary>
+        /// Prefix with the created Id with Yearly no, eg 4899292 to 224899292 
+        /// </summary>
+        public bool PrefixYYNo { get; private set; }
+
         /// <summary>
         /// Gets a default <see cref="IdStructure"/> with 41 bits for the timestamp part, 10 bits for the generator-id 
         /// part and 12 bits for the sequence part of the id.
         /// </summary>
-        public static IdStructure Default => new(41, 10, 12);
+        public static IdStructure Default => new(41, 11, 12, false);
 
         /// <summary>
         /// Initializes an <see cref="IdStructure"/> for <see cref="IdGenerator"/>s.
@@ -49,7 +55,7 @@ namespace IdGen
         /// <param name="timestampBits">Number of bits to use for the timestamp-part of Id's.</param>
         /// <param name="generatorIdBits">Number of bits to use for the generator-id of Id's.</param>
         /// <param name="sequenceBits">Number of bits to use for the sequence-part of Id's.</param>
-        public IdStructure(byte timestampBits, byte generatorIdBits, byte sequenceBits)
+        public IdStructure(byte timestampBits, byte generatorIdBits, byte sequenceBits, bool prefixYY = false)
         {
             if (timestampBits + generatorIdBits + sequenceBits != 63)
             {

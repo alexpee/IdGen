@@ -33,5 +33,6 @@ namespace IdGenTests.Mocks
         public void NextTick() => Interlocked.Increment(ref _current);
 
         public void PreviousTick() => Interlocked.Decrement(ref _current);
+        public long GetYearlyMaxTicks() => throw new NotImplementedException();
     }
 }

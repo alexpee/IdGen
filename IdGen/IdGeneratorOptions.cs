@@ -10,7 +10,7 @@ namespace IdGen
         /// <summary>
         /// Returns the default epoch.
         /// </summary>
-        public static readonly DateTime DefaultEpoch = new(2015, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public static readonly DateTime DefaultEpoch = new(2022, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         private static readonly IdStructure _defaultidstructure = IdStructure.Default;
         private static readonly ITimeSource _defaulttimesource = new DefaultTimeSource(DefaultEpoch);

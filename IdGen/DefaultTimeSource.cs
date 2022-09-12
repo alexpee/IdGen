@@ -34,6 +34,15 @@ namespace IdGen
         /// Note that a 'tick' is a period defined by the timesource; this may be any valid <see cref="TimeSpan"/>; be
         /// it a millisecond, an hour, 2.5 seconds or any other value.
         /// </remarks>
-        public override long GetTicks() => (Offset.Ticks + Elapsed.Ticks) / TickDuration.Ticks;
+        public override long GetTicks() => (Offset.Ticks + Elapsed.Ticks) / TickDuration.Ticks;/// <summary>
+        
+        /// Returns the maximum number of ticks for the <see cref="DefaultTimeSource"/>.
+        /// </summary>
+        /// <returns>The current number of ticks to be used by an <see cref="IdGenerator"/> when creating an Id.</returns>
+        /// <remarks>
+        /// Note that a 'tick' is a period defined by the timesource; this may be any valid <see cref="TimeSpan"/>; be
+        /// it a millisecond, an hour, 2.5 seconds or any other value.
+        /// </remarks>
+        public override long GetYearlyMaxTicks() => (MaxTimeSpan.Ticks + Elapsed.Ticks) / TickDuration.Ticks;
     }
 }

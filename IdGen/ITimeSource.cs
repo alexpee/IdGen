@@ -30,5 +30,15 @@ namespace IdGen
         /// seconds or even days or years.
         /// </remarks>
         long GetTicks();
+
+        /// <summary>
+        /// Returns the yearly maximum number of ticks for the <see cref="ITimeSource"/>.
+        /// </summary>
+        /// <returns>The yearly maximum number of ticks to be used by an <see cref="IdGenerator"/> when creating an Id.</returns>
+        /// <remarks>
+        /// It's up to the <see cref="ITimeSource"/> to define what a 'tick' is; it may be nanoseconds, milliseconds,
+        /// seconds or even days or years.
+        /// </remarks>
+        long GetYearlyMaxTicks();
     }
 }
